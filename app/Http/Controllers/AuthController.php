@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Adldap\Laravel\Facades\Adldap;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use App\Http\Requests\StoreLoginReguest;
 use Laracasts\Flash\Flash;
 use App\User;
 
@@ -20,7 +21,7 @@ class AuthController extends Controller
     	return view('admin.auth.login');
     }
 
-    function posLogin(Request $request){
+    function posLogin(StoreLoginReguest $request){
 
     	$username = $request->username;
     	$password = $request->password;

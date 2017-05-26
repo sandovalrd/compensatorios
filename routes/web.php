@@ -11,9 +11,15 @@
 |
 */
 
-Route::group (['prefix' => 'admin'], function(){
+
+Route::group (['prefix' => 'admin', 'middleware'=>['auth']], function(){
 
 	Route::resource('groups','GroupsController');
+	Route::get('groups/{id}/destroy', 'GroupsController@destroy')->name('groups.destroy');
+
+	Route::resource('Users','UsersController');
+	Route::get('groups/{id}/destroy', 'UsersController@destroy')->name('Users.destroy');	
+
 });
 
 Route::get('/login', "AuthController@getLogin")->name('login');
