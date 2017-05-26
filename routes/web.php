@@ -11,6 +11,13 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+Route::group (['prefix' => 'admin'], function(){
+
+	Route::resource('groups','GroupsController');
 });
+
+Route::get('/login', "AuthController@getLogin")->name('login');
+Route::post('/login', "AuthController@posLogin")->name('login');
+Route::get('/logout', "AuthController@getlogout")->name('logout');
+
+Route::get('/home', 'HomeController@index')->name('home');
