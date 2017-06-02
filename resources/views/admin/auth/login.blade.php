@@ -13,7 +13,7 @@
 				{!! Form::label('username', "Indicador:", ['class' => 'control-label col-md-2']) !!}
 				<div class="col-md-9">
 					<div class="input-group">
-						<span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+						<span class="input-group-addon"><i class="fa fa-user" aria-hidden="true"></i></span>
 						{!! Form::text('username', null, ['class' => 'form-control', 'placeholder'=> 'Introduzca el indicador', 'required']) !!}
 					</div>
 				</div>
@@ -24,7 +24,7 @@
 				{!! Form::label('password', "Password:", ['class' => 'control-label col-md-2']) !!}
 				<div class="col-md-9">
 					<div class="input-group">
-						<span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
+						<span class="input-group-addon"><i class="fa fa-lock" aria-hidden="true"></i></span>
 						{!! Form::password('password', ['class' => 'form-control', 'placeholder' => '*************', 'required']) !!}
 					</div>
 				</div>

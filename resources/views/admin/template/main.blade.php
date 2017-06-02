@@ -4,6 +4,8 @@
 	<meta charset="UTF-8">
 	<title>@yield('title', 'Default') | Siscomp</title>
 	<link rel="stylesheet" href="{{ asset('plugins/bootstrap/css/bootstrap.min.css') }}">
+	<link rel="stylesheet" href="{{ asset('plugins/chosen/chosen.css') }}">
+	<link rel="stylesheet" href="{{ asset('plugins/font-awesome/css/font-awesome.min.css') }}">
 </head>
 <body>
 	<div class="container">
@@ -27,10 +29,10 @@
 			
 		</section>
 	</div>
-		
-
 	<script src="{{ asset ('plugins/jquery/js/jquery-3.2.1.js') }}"></script>
 	<script src="{{ asset ('plugins/bootstrap/js/bootstrap.js') }}"></script>
+	<script src="{{ asset ('plugins/chosen/chosen.jquery.js') }}"></script>
+	@yield('script')
 </body>
 </html>
 

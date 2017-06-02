@@ -17,7 +17,7 @@
 							<td>{{ $group->id }}</td>
 							<td>{{ $group->name }}</td>
 							<td class="text-center">
-								<a href="{{ route('groups.edit', $group->id) }}" class="btn btn-warning"><spam class="glyphicon glyphicon-pencil" aria-hidden="true"></spam></a> <a href="{{ route('groups.destroy', $group->id) }}" onclick="return confirm('Seguro que desea Elimnarlo?')" class="btn btn-danger"><spam class="glyphicon glyphicon-trash" aria-hidden="true"></spam></a>
+								<a href="{{ route('groups.edit', $group->id) }}" class="btn btn-warning"><i class="fa fa-wrench" aria-hidden="true"></i></a> <a href="{{ route('groups.destroy', $group->id) }}" onclick="return confirm('Seguro que desea Elimnarlo?')" class="btn btn-danger"><i class="fa fa-trash" aria-hidden="true"></i></a>
 							</td>
 						</tr>
 					@endforeach

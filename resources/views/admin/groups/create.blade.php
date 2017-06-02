@@ -16,6 +16,7 @@
 		<div class="form-group">
 			<div class="col-md-offset-2	col-md-8">
 				{!! Form::submit('Registrar', ['class' => 'btn btn-primary']) !!}
+				{!! link_to(URL::previous(), 'Cancel', ['class' => 'btn btn-primary']) !!}
 			</div>
 		</div>
 

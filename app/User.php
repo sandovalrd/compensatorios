@@ -14,7 +14,7 @@ class User extends Authenticatable
      *
      * @var array
      */
-    protected $fillable = ['username', 'name', 'lastname', 'ext', 'password'];
+    protected $fillable = ['username', 'name', 'lastname', 'ext', 'phone', 'password', 'group_id'];
 
     /**
      * The attributes that should be hidden for arrays.
@@ -25,9 +25,17 @@ class User extends Authenticatable
         'password', 'remember_token',
     ];
 
-    public function groups(){
+    public function group(){
 
         return $this->belongsTo('App\Group');
         
     }
+
+    public function roles(){
+
+        return $this->belongsToMany('App\Member', 'member_user');
+
+    }
 }
+
+

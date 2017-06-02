@@ -17,8 +17,14 @@ Route::group (['prefix' => 'admin', 'middleware'=>['auth']], function(){
 	Route::resource('groups','GroupsController');
 	Route::get('groups/{id}/destroy', 'GroupsController@destroy')->name('groups.destroy');
 
-	Route::resource('Users','UsersController');
-	Route::get('groups/{id}/destroy', 'UsersController@destroy')->name('Users.destroy');	
+	Route::resource('users','UsersController');
+	Route::get('users/{id}/destroy', 'UsersController@destroy')->name('users.destroy');	
+
+	Route::get('roles/{id}/index', 'RolesController@index')->name('roles.index');
+	Route::get('roles/{id}/create', 'RolesController@create')->name('roles.create');
+	Route::post('roles/store', 'RolesController@store')->name('roles.store');
+	Route::get('roles/{id}/{rol}/destroy', 'RolesController@destroy')->name('roles.destroy');	
+
 
 });
 
