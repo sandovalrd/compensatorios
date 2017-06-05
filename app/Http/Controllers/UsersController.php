@@ -76,7 +76,7 @@ class UsersController extends Controller
 
         $user = new User($request->all());
         $user->save();
-        $user->roles    ()->attach(1); // Rol de Usuario
+        $user->roles()->attach(1); // Rol de Usuario
         
 
         Flash('Empleado creado con exito!')->success()->important();
@@ -154,7 +154,7 @@ class UsersController extends Controller
         $users->group_id = $request->group_id;
         $users->save();
 
-        Flash('Usuario Mdificado!')->success()->important();
+        Flash('Usuario Modificado!')->success()->important();
         return redirect()->route('users.index');
     }
 

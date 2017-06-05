@@ -25,8 +25,14 @@ Route::group (['prefix' => 'admin', 'middleware'=>['auth']], function(){
 	Route::post('roles/store', 'RolesController@store')->name('roles.store');
 	Route::get('roles/{id}/{rol}/destroy', 'RolesController@destroy')->name('roles.destroy');	
 
-
+	Route::resource('guardias', 'GuardiasController');
 });
+
+
+Route::resource('guardia', 'EstatusGuardiasController');
+Route::resource('solicitud', 'SolicitudCompensatorioControllers');
+Route::resource('perfil', 'PerfilController');
+
 
 Route::get('/login', "AuthController@getLogin")->name('login');
 Route::post('/login', "AuthController@posLogin")->name('login');

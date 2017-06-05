@@ -30,7 +30,7 @@
 			</div>
 		</div>
 	</div>
-		<div class="row">
+	<div class="row">
 		<div class="col-md-offset-1	col-md-10"">
 			<a href="{{ route('groups.create') }}" class="btn btn-primary">Nuevo</a>
 		</div>

@@ -8,7 +8,7 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="{{ route('home') }}"><span class="glyphicon glyphicon-duplicate" aria-hidden="true"></span></a>
+      <a class="navbar-brand" href="{{ route('home') }}">Inicio</span></a>
     </div>
 
     <!-- Collect the nav links, forms, and other content for toggling -->
@@ -16,13 +16,13 @@
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       @if (Auth::user())
           <ul class="nav navbar-nav">
-            <li><a href="#" class="navbar-brand">Guardias</a></li>
-            <li><a href="#" class="navbar-brand">Solicitud</a></li>
+            <li><a href="{{ route('guardia.index') }}" class="navbar-brand">Guardias</a></li>
+            <li><a href="{{ route('solicitud.index') }}" class="navbar-brand">Solicitud</a></li>
             <li class="dropdown">
               <a href="#" class="dropdown-toggle navbar-brand" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Administración <span class="caret"></span></a>
               <ul class="dropdown-menu">
                 <li><a href="{{ route('groups.index') }}">Grupos</a></li>
-                <li><a href="#">Guardias</a></li>
+                <li><a href="{{ route('guardias.index') }}">Guardias</a></li>
                 <li role="separator" class="divider"></li>
                 <li class="dropdown">
                  <a href="{{ route('users.index') }}">Empleados</a></li>
@@ -47,7 +47,7 @@
           @else
             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{{ Auth::user()->name . " " . Auth::user()->lastname }}<span class="caret"></span></a>
             <ul class="dropdown-menu">
-              <li><a href="{{ route('groups.index') }}">Edita tu perfil</a></li>
+              <li><a href="{{ route('perfil.index') }}">Edita tu perfil</a></li>
               <li role="separator" class="divider"></li>
               <li><a href="{{ route('logout') }}"><span class="icon icon-off glyphicon glyphicon-off"></span> Desconectar</a></li>
             </ul>

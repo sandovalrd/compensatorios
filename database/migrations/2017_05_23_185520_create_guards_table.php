@@ -22,12 +22,14 @@ class CreateGuardsTable extends Migration
         Schema::create('guards', function (Blueprint $table) {
             $table->increments('id');
             $table->date('date_begin');
-            $table->date('date_end');
+            $table->integer('orden');
             $table->integer('days')->unsigned();
             $table->integer('user_id')->unsigned();
             $table->integer('statusGuards_id')->unsigned();
+            $table->integer('group_id')->unsigned();
 
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+            $table->foreign('group_id')->references('id')->on('groups')->onDelete('cascade');
             $table->foreign('statusGuards_id')->references('id')->on('statusGuards')->onDelete('cascade');
 
             $table->timestamps();
