@@ -14,7 +14,7 @@
 				<div class="col-md-9">
 					<div class="input-group">
 						<span class="input-group-addon"><i class="fa fa-user" aria-hidden="true"></i></span>
-						{!! Form::text('username', null, ['class' => 'form-control', 'placeholder'=> 'Introduzca el indicador', 'required']) !!}
+						{!! Form::text('username', null, ['class' => 'form-control', 'placeholder'=> 'Introduzca el indicador', 'autofocus'=>'autofocus','required']) !!}
 					</div>
 				</div>
 			</div>

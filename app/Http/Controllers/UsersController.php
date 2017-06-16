@@ -5,8 +5,10 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Adldap\Laravel\Facades\Adldap;
 use Laracasts\Flash\Flash;
+use Jenssegers\Date\Date;
 use App\User;
 use App\Group;
+use App\Guardia;
 
 class UsersController extends Controller
 {
@@ -15,10 +17,16 @@ class UsersController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
 
-        $users = User::orderBy('id', 'ASC')->paginate(10);
+        //dd($request);
+        if(!$request->group_id){
+            $group_id = 1; // por defecto trae a Soporte Tecnico especializado
+        }else{
+            $group_id = $request->group_id;
+        }
+        $users = User::search($group_id)->paginate(10);
         $groups = Group::orderBy('name', 'ASC')->pluck('name', 'id');
         $users->each(function( $users ){
             $users->group;
@@ -26,6 +34,7 @@ class UsersController extends Controller
 
         return view('admin.users.index')
             ->with('users', $users)
+            ->with('group_id', $group_id)
             ->with('groups', $groups);
     }
 
@@ -76,12 +85,27 @@ class UsersController extends Controller
 
         $user = new User($request->all());
         $user->save();
-        $user->roles()->attach(1); // Rol de Usuario
+
+        if($request->agregar=='1'){ // Agregar la guardia
+           $guardia = new Guardia();
+           $orden = Guardia::orden($request->group_id);
+           $fecha = Guardia::proxFecha($orden);
+           $fecha = Date::createFromFormat('d-m-Y', $fecha);
+           $guardia->orden=$orden;
+           $guardia->days=2;
+           $guardia->user_id=$user->id;
+           $guardia->group_id=$request->group_id;
+           $guardia->estatus_guardia_id=1; // Estatus Pendiente
+           $guardia->date_begin=$fecha;
+           $guardia->save();
+        }
+
+        $user->roles()->attach(1); // Rol Usuario
         
 
         Flash('Empleado creado con exito!')->success()->important();
 
-        return redirect()->route('users.index');
+        return redirect()->route('users.index', 'group_id=' . $request->group_id);
     }
 
     /**
@@ -145,17 +169,17 @@ class UsersController extends Controller
         }
 
         
-        $users = User::find($id);
-        $users->username = $request->username;
-        $users->name = $request->name;
-        $users->lastname = $request->lastname;
-        $users->ext = $request->ext;
-        $users->phone = $request->phone;
-        $users->group_id = $request->group_id;
-        $users->save();
+        $user = User::find($id);
+        $user->username = $request->username;
+        $user->name = $request->name;
+        $user->lastname = $request->lastname;
+        $user->ext = $request->ext;
+        $user->phone = $request->phone;
+        $user->group_id = $request->group_id;
+        $user->save();
 
         Flash('Usuario Modificado!')->success()->important();
-        return redirect()->route('users.index');
+        return redirect()->route('users.index',  'group_id=' . $user->group_id);
     }
 
     /**

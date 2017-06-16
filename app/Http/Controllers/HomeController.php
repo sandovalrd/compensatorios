@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Carbon\Carbon;
+use App\Guardia;
 
 class HomeController extends Controller
 {
@@ -23,6 +25,14 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+        
+        $fecha = new Carbon('last thursday');
+        $guardias = Guardia::history($fecha)->get();
+        $fecha = new Carbon('next thursday');
+        $proximas = Guardia::home($fecha)->get();
+
+        return view('home')
+            ->with('proximas', $proximas)
+            ->with('guardias', $guardias);
     }
 }

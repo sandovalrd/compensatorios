@@ -36,7 +36,7 @@
 		@if(count($user->roles) !== 3)
 			<a href="{{ route('roles.create', $user->id) }}" class="btn btn-primary">Nuevo</a>
 		@endif 
-			<a href="{{ route('users.index') }}" class="btn btn-primary">Atras</a>
+			<a href="{{ route('users.index', 'group_id=' . $user->group_id) }}" class="btn btn-primary">Atras</a>
 		</div>
 	</div>
 @endsection

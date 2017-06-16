@@ -1,10 +1,10 @@
-migrate_gu<?php
+<?php
 
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateGuardsTable extends Migration
+class CreateHistoryGuardsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,16 +13,11 @@ class CreateGuardsTable extends Migration
      */
     public function up()
     {
-        Schema::create('statusGuards', function(Blueprint $table){
-            $table->increments('id');
-            $table->string('description');
 
-        });
-
-        Schema::create('guards', function (Blueprint $table) {
+        Schema::create('guards_history', function (Blueprint $table) {
             $table->increments('id');
             $table->date('date_begin');
-            $table->integer('orden');
+            //$table->integer('orden');
             $table->integer('days')->unsigned();
             $table->integer('user_id')->unsigned();
             $table->integer('estatus_guardia_id')->unsigned();
@@ -42,6 +37,6 @@ class CreateGuardsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('guards');
+        Schema::dropIfExists('guards_history');
     }
 }

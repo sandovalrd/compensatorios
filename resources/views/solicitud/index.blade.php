@@ -12,7 +12,7 @@
 					<th>Apellido</th>
 					<th class="text-center">Compensatorios</th>
 					<th class="text-center">Dias Solicitados</th>
-					<th class="text-center" width="120px">{{ 'Acción' }}</th>	
+					<th class="text-center" width="120px">{{ 'Aprobación' }}</th>	
 				</thead>
 				<tbody>
 					

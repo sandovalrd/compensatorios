@@ -15,4 +15,11 @@ class Group extends Model
     	return $this->hasMany('App\User');
 
     }
+
+    public function guardia(){
+
+    	return $this->hasMany('App\Guardia');
+
+    }
+
 }

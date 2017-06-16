@@ -9,7 +9,7 @@
 		<div class="form-group">
 			{!! Form::label('name','Nombre:', ['class' => 'control-label col-md-2']) !!}
 			<div class="col-md-8">
-				{!! Form::text('name', $group->name, ['class'=>'form-control', 'placeholder'=>'Nombre del Grupo', 'required']) !!}
+				{!! Form::text('name', $group->name, ['class'=>'form-control', 'placeholder'=>'Nombre del Grupo', 'autofocus'=>'autofocus', 'required']) !!}
 			</div>
 		</div>
 

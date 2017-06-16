@@ -5,11 +5,10 @@
 @section('content')
 	<div class="row">
 		<div class="form-inline col-md-10">
-			{!! Form::label('name','Grupos:', ['class' => 'control-label']) !!}
-			
-				{!! Form::select('group', $groups, null, ['class'=>'form-control select-group', 'placeholder'=>'Seleccione una opción..']) !!}
+			{!! Form::open(['route'=>'users.index', 'method'=>'GET']) !!}
+				{!! Form::select('group', $groups, $group_id, [ 'id'=>'group', 'class'=>'form-control select-group', 'placeholder'=>'Seleccione una opción..', 'onchange'=>'this.form.submit()', 'name'=>'group_id']) !!}
+			{!! Form::close() !!}
 		</div>
-		{!! Form::close() !!}
 	</div>
 	<hr>
 	<div class="row">
@@ -59,8 +58,8 @@
 @endsection
 @section('script')
 	<script>
-		$('.select-group').chosen({
-
+		$(function(){
+			$('.select-group').chosen({});
 		});
 	</script>
 @endsection

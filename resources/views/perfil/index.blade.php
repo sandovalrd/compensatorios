@@ -10,7 +10,7 @@
 		<div class="form-group">
 			{!! Form::label('name','Nombre:', ['class' => 'control-label col-md-2']) !!}
 			<div class="col-md-8">
-				{!! Form::text('name', $user->name, ['class'=>'form-control', 'placeholder'=>'Nombre del empleado', 'required']) !!}
+				{!! Form::text('name', $user->name, ['class'=>'form-control', 'placeholder'=>'Nombre del empleado', 'autofocus'=>'autofocus','required']) !!}
 			</div>
 		</div>
 

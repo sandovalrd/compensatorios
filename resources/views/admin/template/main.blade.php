@@ -19,7 +19,10 @@
 				</div>
 				<div class="panel-body">
 					<br>
-					@include('flash::message')
+					<div class="col-md-offset-2 col-md-8">
+						@include('flash::message')
+						<br>
+					</div>
 					@include('admin.template.error')
 					@yield('content')
 				</div>

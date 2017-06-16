@@ -2,7 +2,11 @@
 
 namespace App\Http\Controllers;
 
+
 use Illuminate\Http\Request;
+use Illuminate\Support\MessageBag;
+
+
 use App\User;
 use App\Member;
 
@@ -16,7 +20,6 @@ class RolesController extends Controller
     public function index($id)
     {
         $user = User::find($id);
-
         return view('admin.roles.index')->with('user', $user);
     }
 
@@ -44,8 +47,15 @@ class RolesController extends Controller
     public function store(Request $request)
     {
         $user = User::find($request->user_id);
-        $user->roles()->attach($request->rol_id); 
+        if (!$user->roles->contains($request->rol_id)) {
+            $user->roles()->attach($request->rol_id); 
+            $user = User::find($request->user_id);
+        }else{
+             $error = new MessageBag;
+             $error->add('key', 'Rol ya existe para éste usuario');
 
+             return redirect('admin/roles/' . $user->id . '/index')->withErrors($error);
+        }
         return view('admin.roles.index')->with('user', $user);
     }
 

@@ -3,7 +3,14 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use App\Guardia;
 use App\Group;
+use App\User;
+use App\EstatusGuardia;
+
 
 class EstatusGuardiasController extends Controller
 {
@@ -17,10 +24,18 @@ class EstatusGuardiasController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $groups = Group::orderBy('name', 'ASC')->pluck('name', 'id');
-        return view('guardias.index')->with('groups', $groups);
+       
+        $group_id = Auth::user()->group_id;
+        
+        $group = Group::where('id', '=', $group_id )->first();
+        $guardias = Guardia::guardias($group_id)->get();
+        
+        return view('guardias.index')
+            ->with('group_id', $group_id)
+            ->with('guardias', $guardias)
+            ->with('group', $group);
     }
 
     /**
@@ -28,7 +43,7 @@ class EstatusGuardiasController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create($id)
     {
         //
     }
@@ -63,7 +78,12 @@ class EstatusGuardiasController extends Controller
      */
     public function edit($id)
     {
-        //
+        $user = User::find($id);
+
+        $estatus = EstatusGuardia::all()->pluck('description', 'id');
+        return view('guardias.edit')
+            ->with('estatus', $estatus)
+            ->with('user', $user);
     }
 
     /**
@@ -75,7 +95,38 @@ class EstatusGuardiasController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+
+        $user = User::find($id);
+        if($request->estatus_id==3){    //Guardia rechazada
+            $count = Guardia::where('group_id', '=', $user->group_id)->count();
+            $guardia = Guardia::where('user_id', '=', $id)->first();   
+
+            if($guardia->orden==$count){
+                 Flash('No hay usuarios disponibles para la próxima guardia!')->error();
+            }else{
+                $orden = $guardia->orden;
+                $fecha = $guardia->date_begin;
+                $orden++;
+                $guardia = Guardia::where([
+                    ['group_id', '=', $user->group_id],
+                    ['orden', '=', $orden],
+                ])->first();
+                Guardia::estatusUpdate($id, $request->estatus_id);
+                Guardia::dateUpdate($guardia->user_id, $fecha); 
+                Flash('Guardia rechazada!')->success()->important();             
+            }
+        }else{
+
+            // Guardar en el historial de guardias
+
+            Guardia::estatusUpdate($id, $request->estatus_id);
+            Flash('Guardia aceptada!')->success()->important();
+        }
+        
+
+        
+
+        return redirect()->route('guardia.index', 'group_id=' . $user->group_id);
     }
 
     /**

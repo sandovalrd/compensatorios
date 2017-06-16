@@ -183,6 +183,7 @@ return [
         Adldap\Laravel\AdldapServiceProvider::class,
         Collective\Html\HtmlServiceProvider::class,
         Laracasts\Flash\FlashServiceProvider::class,
+        Jenssegers\Date\DateServiceProvider::class,
 
     ],
 
@@ -239,6 +240,7 @@ return [
         'Adldap' => Adldap\Laravel\Facades\Adldap::class,
         'Form' => Collective\Html\FormFacade::class,
         'Html' => Collective\Html\HtmlFacade::class,
+        'Date' => Jenssegers\Date\Date::class,
 
     ],
 
