@@ -32,6 +32,12 @@ class User extends Authenticatable
         
     }
 
+    public function compensatorio(){
+
+        return $this->belongsTo('App\Compensatorio');
+        
+    }
+
     public function roles(){
 
         return $this->belongsToMany('App\Member', 'member_user');

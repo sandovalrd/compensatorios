@@ -9,7 +9,10 @@
 				<div class="panel-heading">
 					<h4 class="text-info">
 					@php
-						$fecha = Date::createFromFormat('Y-m-d', $guardias[0]->date_begin)->format('l d, F Y'); 
+						if($guardias->count()!=0)
+							$fecha = Date::createFromFormat('Y-m-d', $guardias[0]->date_begin)->format('l d, F Y'); 
+						else
+							$fecha ='';
 					@endphp
 						Guardias de la semana actual {{ $fecha }}
 					</h4>
@@ -41,7 +44,10 @@
 				<div class="panel-heading">
 					<h4 class="text-info">
 					@php
-						$fecha = Date::createFromFormat('Y-m-d', $proximas[0]->date_begin)->format('l d, F Y'); 
+						if($proximas->count()!=0)
+							$fecha = Date::createFromFormat('Y-m-d', $proximas[0]->date_begin)->format('l d, F Y'); 
+						else
+							$fecha ='';
 					@endphp
 						Guardias de la semana próxima {{ $fecha }}
 					</h4>
@@ -82,22 +88,21 @@
 							<th>Días</th>
 						</thead>
 						<tbody>
-							<tr class="danger">
-								<td>Rafael Sandoval</td>
-								<td>8</td>
-							</tr>
-							<tr class="warning">
-								<td>Javier Duque</td>
-								<td>4</td>
-							</tr>
-							<tr class="info">
-								<td>Susana Vera</td>
-								<td>2</td>
-							</tr>
-							<tr class="info">
-								<td>Gladiola Caldera</td>
-								<td>2</td>
-							</tr>
+							@foreach($compensatorios as $compensatorio)
+								@php
+									if($compensatorio->days<=2)
+										$clase='info';
+									elseif ($compensatorio->days> 2 && $compensatorio->days <=4 )
+										$clase='warning';
+									else
+										$clase='danger';
+								@endphp
+
+								<tr class= {!! $clase !!} >
+									<td>{{ $compensatorio->name . ' ' . $compensatorio->lastname }}</td>
+									<td>{{ $compensatorio->days }}</td>
+								</tr>
+							@endforeach
 						</tbody>
 					</table>
 				</div>

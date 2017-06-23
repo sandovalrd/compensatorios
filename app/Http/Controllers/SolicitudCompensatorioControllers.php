@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use App\Compensatorio;
+use App\Group;
 
 class SolicitudCompensatorioControllers extends Controller
 {
@@ -19,7 +22,15 @@ class SolicitudCompensatorioControllers extends Controller
      */
     public function index()
     {
-        return view('solicitud.index');
+
+        $group_id = Auth::user()->group_id;
+        $group = Group::where('id', '=', $group_id )->first();
+        $compensatorios = Compensatorio::show($group_id);
+
+        //dd($compensatorios);
+        return view('solicitud.index')
+            ->with('group', $group)
+            ->with('compensatorios', $compensatorios);
     }
 
     /**

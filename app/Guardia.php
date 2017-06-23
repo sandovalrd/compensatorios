@@ -125,13 +125,15 @@ class Guardia extends Model
     }
 
     public static function guardarHistorial($guardia){ //Historia de Guardias
-
+        
         DB::table('guards_history')->insert([
-            ['date_begin' => $guardia->date_begin, 
-            ['days' => $guardia->date_days, 
-            ['user_id' => $guardia->user_id, 
-            ['estatus_guardia_id' => $guardia->estatus_guardia_id, 
-            ['group_id' => $guardia->group_id]
+            'date_begin' => $guardia->date_begin, 
+            'days' => $guardia->days, 
+            'user_id' => $guardia->user_id, 
+            'estatus_guardia_id' => 2, // estatus aceptada
+            'group_id' => $guardia->group_id,
+            'created_at' => Carbon::now(),
+            'updated_at' => Carbon::now()
         ]);
     }
 

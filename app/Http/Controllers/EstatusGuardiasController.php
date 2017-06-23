@@ -97,10 +97,10 @@ class EstatusGuardiasController extends Controller
     {
 
         $user = User::find($id);
+        $guardia = Guardia::where('user_id', '=', $id)->first();
+
         if($request->estatus_id==3){    //Guardia rechazada
             $count = Guardia::where('group_id', '=', $user->group_id)->count();
-            $guardia = Guardia::where('user_id', '=', $id)->first();   
-
             if($guardia->orden==$count){
                  Flash('No hay usuarios disponibles para la próxima guardia!')->error();
             }else{
@@ -117,9 +117,11 @@ class EstatusGuardiasController extends Controller
             }
         }else{
 
-            // Guardar en el historial de guardias
-
+            // Cambiar el estatus de la guardia
             Guardia::estatusUpdate($id, $request->estatus_id);
+            // Guardar en el historial de guardias
+            Guardia::guardarHistorial($guardia);
+            
             Flash('Guardia aceptada!')->success()->important();
         }
         

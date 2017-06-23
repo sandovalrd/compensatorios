@@ -1,6 +1,8 @@
 @extends('admin.template.main')
 @section('title', 'Guardias')
-@section('sub-title', 'Solicitud de Compensatorios')
+@section('sub-title')
+	{{ 'Solicitud de compensatorios de ' . $group->name  }}
+@endsection
 
 @section('content')
 
@@ -15,35 +17,17 @@
 					<th class="text-center" width="120px">{{ 'Aprobación' }}</th>	
 				</thead>
 				<tbody>
-					
+					@foreach($compensatorios as $compensatorio)
 						<tr>
-							<td>Rafael</td>
-							<td>Sandoval</td>
-							<td class="text-center">2</td>
-							<td class="text-center">2</td>
+							<td>{{ $compensatorio->name }}</td>
+							<td>{{ $compensatorio->lastname }}</td>
+							<td class="text-center"><a href="#" class="btn">{{ $compensatorio->days }}</td></a>
+							<td class="text-center">{{ $compensatorio->days_request }}</td>
 							<td class="text-center">
 								<a href="#" class="btn"><i class="fa fa-street-view fa-2x" aria-hidden="true"></i></a>
 							</td>
 						</tr>
-						<tr>
-							<td>Javier</td>
-							<td>Duque</td>
-							<td class="text-center">0</td>
-							<td class="text-center">0</td>
-							<td class="text-center">
-								<a href="#" class="btn"><i class="fa fa-street-view fa-2x" aria-hidden="true"></i></a>
-							</td>
-						</tr>
-						<tr>
-							<td>Susa</td>
-							<td>Vera</td>
-							<td class="text-center">4</td>
-							<td class="text-center">0</td>
-							<td class="text-center">
-								<a href="#" class="btn"><i class="fa fa-street-view fa-2x" aria-hidden="true"></i></a>
-							</td>
-						</tr>
-					
+					@endforeach
 				</tbody>
 			</table>
 		</div>
