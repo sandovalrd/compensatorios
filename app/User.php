@@ -65,6 +65,23 @@ class User extends Authenticatable
 
         return $users;
     }
+
+    public function es($slug){
+
+        $resul = DB::table('users')
+            ->join('member_user', 'users.id', '=', 'member_user.user_id')
+            ->join('members', 'members.id', '=', 'member_user.member_id')
+            ->select('members.slug')
+            ->where([
+                    ['users.id', '=', $this->id],
+                    ['members.slug', '=', $slug]])
+            ->first();
+        if(is_null($resul)){
+            return False;
+        }else{
+            return True;
+        }
+    }
 }
 
 

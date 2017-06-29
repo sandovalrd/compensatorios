@@ -6,6 +6,9 @@
 
 @section('content')
 
+	{!! Form::open(['route'=>['solicitud.aprobar'], 'method'=>'GET', 'id'=>'form']) !!}
+	{!! Form::close() !!}
+
 	<div class="row">
 		<div class="col-md-offset-2 col-md-8">
 			<table class="table table-striped">
@@ -13,28 +16,60 @@
 					<th>Nombre</th>
 					<th>Apellido</th>
 					<th class="text-center">Compensatorios</th>
+
 					<th class="text-center">Dias Solicitados</th>
-					<th class="text-center" width="120px">{{ 'Aprobación' }}</th>	
+					<th class="text-center" width="120px">Aprobar</th>	
 				</thead>
 				<tbody>
 					@foreach($compensatorios as $compensatorio)
-						<tr>
+						<tr data-id={{ $compensatorio->id }}>
 							<td>{{ $compensatorio->name }}</td>
 							<td>{{ $compensatorio->lastname }}</td>
-							<td class="text-center"><a href="#" class="btn">{{ $compensatorio->days }}</td></a>
-							<td class="text-center">{{ $compensatorio->days_request }}</td>
-							<td class="text-center">
-								<a href="#" class="btn"><i class="fa fa-street-view fa-2x" aria-hidden="true"></i></a>
-							</td>
+							@if(Auth::user()->id==$compensatorio->user_id)
+								<td class="text-center"><a href="{{ route('solicitud.edit', $compensatorio->user_id) }}" class="btn btn-primary">{{ $compensatorio->days }}</td></a>
+							@else
+								<td class="text-center"><a href="{{ route('solicitud.edit', $compensatorio->user_id) }}" class="btn btn-info">{{ $compensatorio->days }}</td></a>
+							@endif
+							<td class="text-center td-solicitado">{{ $compensatorio->days_request }}</td>
+							@if($compensatorio->days_request > 0)
+								<td class="text-center btn-check">
+									<a href="#" class="btn btn-primary" id='btn'><i class="fa fa-check" aria-hidden="true"></i></a>
+								</td>
+							@else
+								<td class="text-center">
+									<a href="#" class="btn"><i class="fa fa-times" aria-hidden="true"></i></a>
+								</td>
+							@endif
 						</tr>
 					@endforeach
 				</tbody>
 			</table>
 		</div>
 	</div>
-	<div class="row">
-		<div class="col-md-offset-2	col-md-8"">
-			<a href="#" class="btn btn-primary">Solicitar</a>
-		</div>
-	</div>
+	{!! Form::hidden('user_id', $user_id, ['class'=>'user_id']) !!}
 @endsection
+@section('script')
+	<script>
+		$(function(){
+			$('.btn-check').click(function(){
+				var row = $(this).parents('tr');
+				var user_id = parseInt($('.user_id').val());
+				var url = $('#form').attr('action');
+				var data = { user_id: user_id };
+				$.get(url, data, function(resul){ 
+					row.find(".fa").removeClass('fa-check');
+					row.find("#btn").removeClass('btn-primary');
+					row.find(".fa").addClass('fa-times');
+					row.find(".td-solicitado").html(0);
+					alert('Aprobación exitosa');
+					$('.btn-primary').focus();
+				}).fail(function(){
+				    alert('Hubo un error en la aprobación');
+				});
+				
+			});
+		});		
+	</script>
+@endsection
+
+		

@@ -37,7 +37,9 @@ class HomeController extends Controller
 
         $group_id = Auth::user()->group_id;
         $group = Group::where('id', '=', $group_id )->first();
-        $compensatorios = Compensatorio::show($group_id);
+        $compensatorios = Compensatorio::show($group_id, 'days');
+
+        //dd(Auth::user()->es('admin'));
 
         return view('home')
             ->with('proximas', $proximas)

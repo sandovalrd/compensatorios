@@ -129,6 +129,8 @@ class Guardia extends Model
         DB::table('guards_history')->insert([
             'date_begin' => $guardia->date_begin, 
             'days' => $guardia->days, 
+            'days_take' => 0, 
+            'days_request' => 0,
             'user_id' => $guardia->user_id, 
             'estatus_guardia_id' => 2, // estatus aceptada
             'group_id' => $guardia->group_id,

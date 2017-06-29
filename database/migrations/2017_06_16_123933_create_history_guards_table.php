@@ -19,6 +19,7 @@ class CreateHistoryGuardsTable extends Migration
             $table->date('date_begin');
             //$table->integer('orden');
             $table->integer('days')->unsigned();
+            $table->integer('days_take')->unsigned();
             $table->integer('user_id')->unsigned();
             $table->integer('estatus_guardia_id')->unsigned();
             $table->integer('group_id')->unsigned();

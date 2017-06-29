@@ -36,6 +36,8 @@ Route::group (['prefix' => 'admin', 'middleware'=>['auth']], function(){
 Route::resource('guardia', 'EstatusGuardiasController');
 
 Route::resource('solicitud', 'SolicitudCompensatorioControllers');
+Route::get('solicitar', 'SolicitudCompensatorioControllers@solicitar')->name('solicitud.solicitar');
+Route::get('aprobar', 'SolicitudCompensatorioControllers@aprobar')->name('solicitud.aprobar');	
 Route::resource('perfil', 'PerfilController');
 
 
@@ -44,3 +46,4 @@ Route::post('/login', "AuthController@posLogin")->name('login');
 Route::get('/logout', "AuthController@getlogout")->name('logout');
 
 Route::get('/home', 'HomeController@index')->name('home');
+
