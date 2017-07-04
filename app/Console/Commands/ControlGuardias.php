@@ -20,7 +20,7 @@ class ControlGuardias extends Command
      *
      * @var string
      */
-    protected $description = 'Comando para realizar el cambio de guardia semanal';
+    protected $description = 'Realiza el cambio de guardia semanal';
 
     /**
      * Create a new command instance.

@@ -14,7 +14,9 @@ class Kernel extends ConsoleKernel
      * @var array
      */
     protected $commands = [
-        Commands\ControlGuardias::class
+        Commands\ControlGuardias::class,
+        Commands\EnviarEmails::class
+        
     ];
 
     /**
@@ -29,7 +31,11 @@ class Kernel extends ConsoleKernel
          ->weekly()
          ->Thursdays()
          ->dailyAt('11:00');
-         echo Carbon::now();
+        // echo Carbon::now();
+
+        $schedule->command('siscomp:send-emails');
+
+         
     }
 
     /**

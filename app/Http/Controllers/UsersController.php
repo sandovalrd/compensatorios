@@ -12,6 +12,11 @@ use App\Guardia;
 
 class UsersController extends Controller
 {
+
+    public function __construct()
+    {
+        $this->middleware('CheckRol:super');
+    }
     /**
      * Display a listing of the resource.
      *

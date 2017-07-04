@@ -8,10 +8,10 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      @if (Auth::user()) 
+      @if (Auth::user())
         <a class="navbar-brand" href="{{ route('home') }}">Inicio</span></a>
       @endif
-    </div>
+      </div>
 
     <!-- Collect the nav links, forms, and other content for toggling -->
     
@@ -20,23 +20,20 @@
           <ul class="nav navbar-nav">
             <li><a href="{{ route('guardia.index') }}" class="navbar-brand">Guardias</a></li>
             <li><a href="{{ route('solicitud.index') }}" class="navbar-brand">Solicitud</a></li>
-            <li class="dropdown">
-              <a href="#" class="dropdown-toggle navbar-brand" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Administración <span class="caret"></span></a>
-              <ul class="dropdown-menu">
-                <li><a href="{{ route('groups.index') }}">Grupos</a></li>
-                <li><a href="{{ route('guardias.index') }}">Guardias</a></li>
-                <li role="separator" class="divider"></li>
-                <li class="dropdown">
-                 <a href="{{ route('users.index') }}">Empleados</a></li>
-              </ul>
-              <li>
+            @if (Auth::user()->es('super') || Auth::user()->es('admin'))
+              <li class="dropdown">
+                <a href="#" class="dropdown-toggle navbar-brand" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Administración <span class="caret"></span></a>
                 <ul class="dropdown-menu">
-                  <li><a href="#">Page 1-1</a></li>
-                  <li><a href="#">Page 1-2</a></li>
-                  <li><a href="#">Page 1-3</a></li>
+                  @if (Auth::user()->es('admin'))
+                    <li><a href="{{ route('groups.index') }}">Grupos</a></li>
+                  @endif
+                  <li><a href="{{ route('guardias.index') }}">Guardias</a></li>
+                  <li role="separator" class="divider"></li>
+                  <li class="dropdown">
+                   <a href="{{ route('users.index') }}">Empleados</a></li>
                 </ul>
               </li>
-            </li>
+            @endif
           </ul>
       @endif
       <ul class="nav navbar-nav navbar-right">

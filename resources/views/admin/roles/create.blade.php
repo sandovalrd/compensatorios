@@ -9,14 +9,14 @@
 	{!! Form::open(['route'=>['roles.store'], 'method'=>'POST', 'class'=>'form-horizontal']) !!}
 
 		<div class="form-group">
-			{!! Form::label('rol','Rol:', ['class' => 'control-label col-md-2']) !!}
-			<div class="col-md-8">
+			{!! Form::label('rol','Rol:', ['class' => 'control-label col-md-3']) !!}
+			<div class="col-md-7">
 				{!! Form::select('rol_id', $roles, null, ['class'=>'form-control', 'placeholder'=>'Seleccione una opción..', 'required']) !!}
 			</div>
 		</div>
 
 		<div class="form-group">
-			<div class="col-md-offset-2	col-md-8">
+			<div class="col-md-offset-3	col-md-7">
 				{!! Form::submit('Registrar', ['class' => 'btn btn-primary']) !!}
 				
 			</div>

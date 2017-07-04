@@ -37,7 +37,9 @@
 							<td class="text-center">
 								<a href="{{ route('users.edit', $user->id) }}" class="btn btn-warning"><i class="fa fa-wrench" aria-hidden="true"></i></a>
 								<a href="{{ route('users.destroy', $user->id) }}" onclick="return confirm('Seguro que desea Elimnarlo?')" class="btn btn-danger"><i class="fa fa-trash" aria-hidden="true"></i></a>
-								<a href="{{ route('roles.index', $user->id) }}" class="btn btn-primary"><i class="fa fa-user-plus" aria-hidden="true"></i></a>
+								@if (Auth::user()->es('admin'))
+									<a href="{{ route('roles.index', $user->id) }}" class="btn btn-primary"><i class="fa fa-user-plus" aria-hidden="true"></i></a>
+								@endif
 							</td>
 						</tr>
 					@endforeach

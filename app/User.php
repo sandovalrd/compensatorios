@@ -82,6 +82,21 @@ class User extends Authenticatable
             return True;
         }
     }
+
+    public static function searchSupervisor($grupo){
+
+        $supervisores = DB::table('users')
+            ->join('member_user', 'users.id', '=', 'member_user.user_id')
+            ->join('members', 'members.id', '=', 'member_user.member_id')
+            ->select('users.username')
+            ->where([
+                    ['users.group_id', '=', $grupo],
+                    ['members.slug', '=', 'super']])
+            ->get();
+        
+        return $supervisores;
+    }
+
 }
 
 

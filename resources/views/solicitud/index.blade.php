@@ -18,7 +18,9 @@
 					<th class="text-center">Compensatorios</th>
 
 					<th class="text-center">Dias Solicitados</th>
-					<th class="text-center" width="120px">Aprobar</th>	
+					@if (Auth::user()->es('super'))
+						<th class="text-center" width="120px">Aprobar</th>	
+					@endif
 				</thead>
 				<tbody>
 					@foreach($compensatorios as $compensatorio)
@@ -31,14 +33,16 @@
 								<td class="text-center"><a href="{{ route('solicitud.edit', $compensatorio->user_id) }}" class="btn btn-info">{{ $compensatorio->days }}</td></a>
 							@endif
 							<td class="text-center td-solicitado">{{ $compensatorio->days_request }}</td>
-							@if($compensatorio->days_request > 0)
-								<td class="text-center btn-check">
-									<a href="#" class="btn btn-primary" id='btn'><i class="fa fa-check" aria-hidden="true"></i></a>
-								</td>
-							@else
-								<td class="text-center">
-									<a href="#" class="btn"><i class="fa fa-times" aria-hidden="true"></i></a>
-								</td>
+							@if (Auth::user()->es('super'))
+								@if($compensatorio->days_request > 0)
+									<td class="text-center btn-check">
+										<a href="#" class="btn btn-primary" id='btn'><i class="fa fa-check" aria-hidden="true"></i></a>
+									</td>
+								@else
+									<td class="text-center">
+										<a href="#" class="btn"><i class="fa fa-times" aria-hidden="true"></i></a>
+									</td>
+								@endif
 							@endif
 						</tr>
 					@endforeach

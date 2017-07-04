@@ -8,6 +8,12 @@ use App\Group;
 
 class GroupsController extends Controller
 {
+
+
+    public function __construct()
+    {
+        $this->middleware('CheckRol:admin');
+    }
     /**
      * Display a listing of the resource.
      *

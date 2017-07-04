@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Compensatorio;
 use App\Group;
 use App\User;
+use App\Email;
 
 class SolicitudCompensatorioControllers extends Controller
 {
@@ -14,7 +15,7 @@ class SolicitudCompensatorioControllers extends Controller
 
     public function __construct()
     {
-        $this->middleware('auth');
+        $this->middleware(['auth', 'CheckRol:user']);
     }
     /**
      * Display a listing of the resource.
@@ -122,7 +123,15 @@ class SolicitudCompensatorioControllers extends Controller
             $tipo   = $request->tipo;
             $user_id= $request->user_id;
 
+            $user = User::find($user_id);
+
             Compensatorio::solicitar($id, $valor, $tipo, $user_id);
+            
+            if ($tipo==1)
+                Email::guardarEmail(3, $user_id, 'fecha', $user->group_id);
+            else
+                Email::guardarEmail(4, $user_id, 'fecha', $user->group_id);
+
             return response()->json([
                 'id'      =>  $request->id,
                 'valor'   =>  $request->valor,
@@ -134,9 +143,11 @@ class SolicitudCompensatorioControllers extends Controller
     }
 
     public function aprobar(Request $request){
+
         if($request->ajax()){
-            $user_id = $request->user_id;            
-            Compensatorio::aprobar($user_id);
+            $user = User::find($request->user_id);
+            //Compensatorio::aprobar($user->id);
+            Email::guardarEmail(5, $user->id, 'fecha', $user->group_id);
             return response()->json([
                 'id'      =>  1,
                 'valor'   =>  2,

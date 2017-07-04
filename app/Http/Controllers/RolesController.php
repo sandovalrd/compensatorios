@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\MessageBag;
+use Mail;
 
 
 use App\User;
@@ -12,6 +13,12 @@ use App\Member;
 
 class RolesController extends Controller
 {
+
+    public function __construct()
+    {
+        $this->middleware('CheckRol:admin');
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -19,6 +26,7 @@ class RolesController extends Controller
      */
     public function index($id)
     {
+
         $user = User::find($id);
         return view('admin.roles.index')->with('user', $user);
     }

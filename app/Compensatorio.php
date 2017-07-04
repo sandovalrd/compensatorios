@@ -42,7 +42,7 @@ class Compensatorio extends Model
             ->select('users.*', 'guards_history.*')
             ->where([
                     ['users.id', '=', $user_id],
-                    ['guards_history.date_begin', '<=', $hoy],
+                    ['guards_history.date_begin', '<', $hoy],
                     ['guards_history.estatus_guardia_id', '=', 2]])
             ->orderby('guards_history.date_begin', 'ASC')
             ->get();

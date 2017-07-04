@@ -12,7 +12,7 @@
 */
 
 
-Route::group (['prefix' => 'admin', 'middleware'=>['auth']], function(){
+Route::group (['prefix' => 'admin', 'middleware'=>['auth', 'CheckRol:super']], function(){
 
 	Route::resource('groups','GroupsController');
 	Route::get('groups/{id}/destroy', 'GroupsController@destroy')->name('groups.destroy');

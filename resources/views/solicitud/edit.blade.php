@@ -97,7 +97,7 @@
 							total = total + valor;
 							$('.total').html(total);
 							$('.btn-primary').focus();
-							//console.log(resul);
+							alert('Solicitud creada con exito!')
 					    }).fail(function(){
 					        alert('Hubo un error en la solicitud');
 					    });
@@ -114,7 +114,7 @@
 						$('#'+id).val(disponible+solicitado);
 						row.find(".fa").removeClass('fa-times');
 						row.find(".fa").addClass('fa-check');
-						//console.log(resul);
+						alert('Solicitud anulada!')
 					}).fail(function(){
 					    alert('Hubo un error en la eliminación de la solicitud');
 					});

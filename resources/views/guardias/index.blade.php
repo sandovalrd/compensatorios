@@ -40,7 +40,7 @@
 							<td>{{ $guardia->name }}</td>
 							<td>{{ $guardia->lastname }}</td>
 							<td>{{ $fecha }}</td>
-							@if ($i==1 && $guardia->estatus_guardia_id==1 )
+							@if ($i==1 && $guardia->estatus_guardia_id==1 && $guardia->user_id==Auth::user()->id )
 								<td>
 									<a href="{{ route('guardia.edit', $guardia->user_id) }}" class="label label-primary">{{ $guardia->description }} </a>
 								</td>
