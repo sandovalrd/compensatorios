@@ -53,19 +53,24 @@ class EnviarEmails extends Command
                 'mensaje'   => $email->message,
                 'subject'   => $email->subject,
                 'to'        => $email->to,
-                'cc'        => $email->cc
+                'cc'        => $email->cc,
+                'id'        => $email->id
 
             ];
 
-          Mail::send('emails.contact', $data, function($msj){
+
+            Mail::send('emails.contact', $data, function($msj){
                 global $data;
+                $to = explode(",", $data['to']);
+                $cc = explode(",", $data['cc']);
+
                 $msj->subject($data['subject']);
-                $msj->to($data['to']);
-                $msj->cc($data['cc']);
+                $msj->to($to);
+                $msj->cc($cc);
             });
 
             DB::table('email')
-                ->where('id', '=', $email->id)
+                ->where('id', '=', $data['id'])
                 ->update(['status' => 1]);
         }
 

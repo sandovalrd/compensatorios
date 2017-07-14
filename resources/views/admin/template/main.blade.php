@@ -6,6 +6,8 @@
 	<link rel="stylesheet" href="{{ asset('plugins/bootstrap/css/bootstrap.min.css') }}">
 	<link rel="stylesheet" href="{{ asset('plugins/chosen/chosen.css') }}">
 	<link rel="stylesheet" href="{{ asset('plugins/font-awesome/css/font-awesome.min.css') }}">
+	<link rel="stylesheet" href="{{ asset('plugins/datetimepicker/css/bootstrap-datetimepicker.css') }}">
+
 </head>
 <body>
 	<div class="container">
@@ -32,9 +34,11 @@
 			
 		</section>
 	</div>
-	<script src="{{ asset ('plugins/jquery/js/jquery-3.2.1.js') }}"></script>
+	<script src="{{ asset ('plugins/jquery/js/jquery-2.1.1.min.js') }}"></script>
 	<script src="{{ asset ('plugins/bootstrap/js/bootstrap.js') }}"></script>
 	<script src="{{ asset ('plugins/chosen/chosen.jquery.js') }}"></script>
+	<script src="{{ asset ('plugins/datetimepicker/js/moment-with-locales.js') }}"></script>
+	<script src="{{ asset ('plugins/datetimepicker/js/bootstrap-datetimepicker.js') }}"></script>
 	@yield('script')
 </body>
 </html>

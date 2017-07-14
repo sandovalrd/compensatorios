@@ -4,38 +4,44 @@
 
 @section('content')
 
-	<div class="panel panel-default col-md-offset-3	col-md-6">
-		<div class="panel-body">
-		<br>
-		{!! Form::open(['route'=> 'login', 'method' => 'POST', 'class'=>'form-horizontal']) !!}
+	<div class="col-md-offset-3 col-md-6">
+		<div class="panel panel-default ">
+			<div class="panel-heading">
+				<h4 class="text-info text-center">Sistema de Compensatorios AIT</h4>
+			</div>
+			<div class="panel-body">
 
-			<div class="form-group">
-				{!! Form::label('username', "Indicador:", ['class' => 'control-label col-md-2']) !!}
-				<div class="col-md-9">
-					<div class="input-group">
-						<span class="input-group-addon"><i class="fa fa-user" aria-hidden="true"></i></span>
-						{!! Form::text('username', null, ['class' => 'form-control', 'placeholder'=> 'Introduzca el indicador', 'autofocus'=>'autofocus','required']) !!}
+			<br>
+			{!! Form::open(['route'=> 'login', 'method' => 'POST', 'class'=>'form-horizontal']) !!}
+
+				<div class="form-group">
+					{!! Form::label('username', "Indicador:", ['class' => 'control-label col-md-2']) !!}
+					<div class="col-md-9">
+						<div class="input-group">
+							<span class="input-group-addon"><i class="fa fa-user" aria-hidden="true"></i></span>
+							{!! Form::text('username', null, ['class' => 'form-control', 'placeholder'=> 'Introduzca el indicador', 'autofocus'=>'autofocus','required']) !!}
+						</div>
 					</div>
 				</div>
-			</div>
-			<div class="form-group">
-			
+				<div class="form-group">
+				
 
-				{!! Form::label('password', "Password:", ['class' => 'control-label col-md-2']) !!}
-				<div class="col-md-9">
-					<div class="input-group">
-						<span class="input-group-addon"><i class="fa fa-lock" aria-hidden="true"></i></span>
-						{!! Form::password('password', ['class' => 'form-control', 'placeholder' => '*************', 'required']) !!}
+					{!! Form::label('password', "Password:", ['class' => 'control-label col-md-2']) !!}
+					<div class="col-md-9">
+						<div class="input-group">
+							<span class="input-group-addon"><i class="fa fa-lock" aria-hidden="true"></i></span>
+							{!! Form::password('password', ['class' => 'form-control', 'placeholder' => '*************', 'required']) !!}
+						</div>
 					</div>
 				</div>
-			</div>
-			<div class="form-group">
-				<div class="col-md-offset-2	col-md-9">
-					{!! Form::submit('Acceder', ['class'=>'btn btn-primary']) !!}
+				<div class="form-group">
+					<div class="col-md-offset-2	col-md-9">
+						{!! Form::submit('Acceder', ['class'=>'btn btn-primary']) !!}
+					</div>
 				</div>
-			</div>
 
-		{!! Form::close() !!}
+			{!! Form::close() !!}
+			</div>
 		</div>
 	</div>
 

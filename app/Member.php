@@ -13,7 +13,7 @@ class Member extends Model
 
     public function users(){
 
-        return $this->belongsToMany('App\User', 'member_user');
+        return $this->belongsToMany('App\User', 'member_user')->withTimestamps();
 
     }
 }

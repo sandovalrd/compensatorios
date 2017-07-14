@@ -30,7 +30,7 @@
 								$clase="info"; 
 							else
 								$clase="";
-							$fecha = Date::createFromFormat('Y-m-d', $guardia->date_begin)->format('l d, F Y'); 
+							$fecha = Date::createFromFormat('Y-m-d', $guardia->date_begin)->format('l d \\d\\e F Y'); 
 							if($guardia->estatus_guardia_id!=3)
 								$i++;
 						@endphp

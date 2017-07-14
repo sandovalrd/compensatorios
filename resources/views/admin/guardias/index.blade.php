@@ -29,7 +29,7 @@
 					@foreach($guardias as $guardia)
 						<tr>
 							@php
-								$fecha = Date::createFromFormat('Y-m-d', $guardia->date_begin)->format('l d, F Y'); 
+								$fecha = Date::createFromFormat('Y-m-d', $guardia->date_begin)->format('l d \\d\\e F Y'); 
 							@endphp
 							<td>{{ $guardia->id }}</td>
 							<td>{{ $guardia->name }}</td>

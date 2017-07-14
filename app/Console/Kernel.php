@@ -25,7 +25,7 @@ class Kernel extends ConsoleKernel
      * @param  \Illuminate\Console\Scheduling\Schedule  $schedule
      * @return void
      */
-    protected function schedule(Schedule $schedule)
+    protected function (Schedule $schedule)
     {
         $schedule->command('siscomp:controlweek')
          ->weekly()

@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Compensatorio;
+use App\Notificacion;
+use Carbon\Carbon;
 use App\Group;
 use App\User;
 use App\Email;
@@ -30,7 +32,6 @@ class SolicitudCompensatorioControllers extends Controller
         $group = Group::where('id', '=', $group_id )->first();
         $compensatorios = Compensatorio::show($group_id, 'days_request');
 
-        //dd($compensatorios);
         return view('solicitud.index')
             ->with('group', $group)
             ->with('user_id', $user_id)
@@ -80,11 +81,16 @@ class SolicitudCompensatorioControllers extends Controller
     {
         $user = User::find($id);
         $disponibles=Compensatorio::disponibles($id);
+        $notificar = Notificacion::where([
+                ['status', 0],
+                ['user_id', $user->id]
+                ])->count();
 
         //Compensatorio::aprobar(1);
 
         return view('solicitud.edit')
             ->with('disponibles', $disponibles)
+            ->with('notificar', $notificar)
             ->with('user', $user);
     }
 
@@ -122,20 +128,23 @@ class SolicitudCompensatorioControllers extends Controller
             $valor  = $request->valor;
             $tipo   = $request->tipo;
             $user_id= $request->user_id;
+            $fecha  = $request->fecha;
+            $desde  = $request->desde;
+
 
             $user = User::find($user_id);
 
             Compensatorio::solicitar($id, $valor, $tipo, $user_id);
             
             if ($tipo==1)
-                Email::guardarEmail(3, $user_id, 'fecha', $user->group_id);
+                Email::guardarNotificacion(3, $user_id, $fecha, $user->group_id, $desde);
             else
-                Email::guardarEmail(4, $user_id, 'fecha', $user->group_id);
+                Email::guardarNotificacion(4, $user_id, $fecha, $user->group_id);
 
             return response()->json([
                 'id'      =>  $request->id,
                 'valor'   =>  $request->valor,
-                'tipo'    =>  $tipo
+                'tipo'    =>  $request->fecha
             ]);
         }
 
@@ -145,14 +154,27 @@ class SolicitudCompensatorioControllers extends Controller
     public function aprobar(Request $request){
 
         if($request->ajax()){
+            $fecha = Carbon::now();
             $user = User::find($request->user_id);
             //Compensatorio::aprobar($user->id);
-            Email::guardarEmail(5, $user->id, 'fecha', $user->group_id);
+            Email::guardarEmail(5, $user->id, $fecha, $user->group_id);
             return response()->json([
                 'id'      =>  1,
                 'valor'   =>  2,
                 'tipo'    =>  3
             ]);
         }
+    }
+
+    public function notificar(){
+
+        $group_id = Auth::user()->group_id;
+        $user_id = Auth::user()->id;
+
+        Email::guardarEmail(3, $user_id, 'fecha', $group_id);
+        Email::guardarEmail(4, $user_id, 'fecha', $group_id);
+
+        return redirect()->route('solicitud.index');
+
     }
 }

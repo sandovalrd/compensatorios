@@ -38,6 +38,7 @@ Route::resource('guardia', 'EstatusGuardiasController');
 Route::resource('solicitud', 'SolicitudCompensatorioControllers');
 Route::get('solicitar', 'SolicitudCompensatorioControllers@solicitar')->name('solicitud.solicitar');
 Route::get('aprobar', 'SolicitudCompensatorioControllers@aprobar')->name('solicitud.aprobar');	
+Route::get('notificar', 'SolicitudCompensatorioControllers@notificar')->name('solicitud.notificar');
 Route::resource('perfil', 'PerfilController');
 
 

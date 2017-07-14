@@ -28,7 +28,6 @@ class EstatusGuardiasController extends Controller
     public function index(Request $request)
     {
 
-
         $group_id = Auth::user()->group_id;
 
         $group = Group::where('id', '=', $group_id )->first();

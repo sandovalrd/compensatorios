@@ -10,7 +10,7 @@
 					<h4 class="text-info">
 					@php
 						if($guardias->count()!=0)
-							$fecha = Date::createFromFormat('Y-m-d', $guardias[0]->date_begin)->format('l d, F Y'); 
+							$fecha = Date::createFromFormat('Y-m-d', $guardias[0]->date_begin)->format('l d \\d\\e F Y'); 
 						else
 							$fecha ='';
 					@endphp
@@ -45,7 +45,7 @@
 					<h4 class="text-info">
 					@php
 						if($proximas->count()!=0)
-							$fecha = Date::createFromFormat('Y-m-d', $proximas[0]->date_begin)->format('l d, F Y'); 
+							$fecha = Date::createFromFormat('Y-m-d', $proximas[0]->date_begin)->format('l d \\d\\e F Y'); 
 						else
 							$fecha ='';
 					@endphp
