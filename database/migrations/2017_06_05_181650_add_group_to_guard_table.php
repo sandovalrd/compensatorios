@@ -11,7 +11,7 @@ class AddGroupToGuardTable extends Migration
      *
      * @return void
      */
-    public function up()
+   /* public function up()
     {
         Schema::table('guards', function (Blueprint $table) {
             $table->integer('group_id')->unsigned();
@@ -25,10 +25,10 @@ class AddGroupToGuardTable extends Migration
      *
      * @return void
      */
-    public function down()
+   /* public function down()
     {
         Schema::table('guards', function (Blueprint $table) {
             //
         });
-    }
+    }*/
 }

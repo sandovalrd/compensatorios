@@ -25,7 +25,7 @@ class UsersController extends Controller
     public function index(Request $request)
     {
 
-        //dd($request);
+
         if(!$request->group_id){
             $group_id = 1; // por defecto trae a Soporte Tecnico especializado
         }else{
@@ -108,7 +108,7 @@ class UsersController extends Controller
         $user->roles()->attach(1); // Rol Usuario
         
 
-        Flash('Empleado creado con exito!')->success()->important();
+        Flash('Usuario creado con exito!')->success()->important();
 
         return redirect()->route('users.index', 'group_id=' . $request->group_id);
     }

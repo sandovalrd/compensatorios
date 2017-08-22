@@ -101,7 +101,15 @@
 						}else{
 							$("#group").focus();
 						}
+					}).fail(function(){
+					    alert('Hubo un error en la busqueda en el Ldap');
+					    buscandoFin('username');
+				       	buscandoFin('name');
+				       	buscandoFin('lastname');
+				       	buscandoFin('ext');
+				       	buscandoFin('phone');
 					});
+
   				}
 
 		   });

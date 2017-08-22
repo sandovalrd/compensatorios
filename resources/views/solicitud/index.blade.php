@@ -24,7 +24,7 @@
 				</thead>
 				<tbody>
 					@foreach($compensatorios as $compensatorio)
-						<tr data-id={{ $compensatorio->id }}>
+						<tr data-id={{ $compensatorio->user_id }}>
 							<td>{{ $compensatorio->name }}</td>
 							<td>{{ $compensatorio->lastname }}</td>
 							@if(Auth::user()->id==$compensatorio->user_id)
@@ -57,9 +57,11 @@
 		$(function(){
 			$('.btn-check').click(function(){
 				var row = $(this).parents('tr');
-				var user_id = parseInt($('.user_id').val());
+				var user_id 		= row.data('id');
+				//var user_id = parseInt($('.user_id').val());
 				var url = $('#form').attr('action');
 				var data = { user_id: user_id };
+				//alert(user_id);
 				$.get(url, data, function(resul){ 
 					row.find(".fa").removeClass('fa-check');
 					row.find("#btn").removeClass('btn-primary');

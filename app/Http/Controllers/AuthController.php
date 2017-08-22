@@ -27,7 +27,7 @@ class AuthController extends Controller
     	$password = $request->password;
     	$user = User::where('username', '=', $username)->first();
 
- 		//if (Adldap::auth()->attempt($username, $password)) {
+ 		if (Adldap::auth()->attempt($username, $password)) {
  			if($user){
  				Auth::loginUsingId($user->id);
  				return redirect()->route('home');
@@ -35,10 +35,10 @@ class AuthController extends Controller
  				Flash('Usuario no registrado en el sistema!')->error()->important();
  				return view('admin.auth.login');	
  			}
- 		/*}else{
+ 		}else{
  			Flash('Usuario o contraseña incorrectas!')->error()->important();
  			return view('admin.auth.login');
- 		}*/
+ 		}
     }
 
     function getlogout(){
