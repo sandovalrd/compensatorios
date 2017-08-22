@@ -44,6 +44,7 @@ class HomeController extends Controller
         return view('home')
             ->with('proximas', $proximas)
             ->with('compensatorios', $compensatorios)
+            ->with('grupo', $group)
             ->with('guardias', $guardias);
     }
 }

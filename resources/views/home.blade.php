@@ -79,7 +79,7 @@
 		<div class="col-md-4">
 			<div class="panel panel-default">
 				<div class="panel-heading">
-					<h4 class="text-info">Soporte Tecnico Especializado</h5>
+					<h4 class="text-info">{{ $grupo->name }}</h5>
 				</div>
 				<div class="panel-body">
 					<table class="table table-striped">
@@ -90,9 +90,9 @@
 						<tbody>
 							@foreach($compensatorios as $compensatorio)
 								@php
-									if($compensatorio->days<=2)
+									if($compensatorio->days<=3)
 										$clase='info';
-									elseif ($compensatorio->days> 2 && $compensatorio->days <=4 )
+									elseif ($compensatorio->days> 3 && $compensatorio->days <=6 )
 										$clase='warning';
 									else
 										$clase='danger';

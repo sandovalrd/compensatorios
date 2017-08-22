@@ -25,7 +25,11 @@ class Compensatorio extends Model
     	$users = DB::table('users')
             ->join('compensatories', 'users.id', '=', 'compensatories.user_id')
             ->select('users.*', 'compensatories.*')
-            ->where('users.group_id', '=', $grupo)
+            //->where('users.group_id', '=', $grupo)
+            ->where([
+                    ['users.group_id', '=', $grupo],
+                    ['compensatories.days', '>', 0]])
+                    
             ->orderby($order, 'DESC')
             ->get();
 

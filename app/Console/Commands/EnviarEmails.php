@@ -40,7 +40,7 @@ class EnviarEmails extends Command
     public function handle()
     {
 
-        global $data;
+       global $data;
         $emails = DB::table('email')
                          ->select('*')
                          ->where('status','=',0)
@@ -63,7 +63,6 @@ class EnviarEmails extends Command
                 global $data;
                 $to = explode(",", $data['to']);
                 $cc = explode(",", $data['cc']);
-
                 $msj->subject($data['subject']);
                 $msj->to($to);
                 $msj->cc($cc);
@@ -73,6 +72,8 @@ class EnviarEmails extends Command
                 ->where('id', '=', $data['id'])
                 ->update(['status' => 1]);
         }
+        
+        //$this->info('Paso!');
 
     }
 }

@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Jenssegers\Date\Date;
 use App\User;
+use App\Group;
 
 class Email extends Model
 {
@@ -19,6 +20,7 @@ class Email extends Model
     public static function guardarEmail($tipo, $user_id, $fecha, $grupo_id, $desde = null){
     	$dominio = '@pdvsa.com';
     	$user = User::find($user_id);
+        $grupo = Group::find($grupo_id);
     	$cc='';
     	$email = false;
 
@@ -39,8 +41,8 @@ class Email extends Model
     	$to = $user->username . $dominio;
 
     	if($tipo==1){ // Guardia aceptada
-    		$message='Se informa que el empleado ' . $user->name . ' ' . $user->lastname  .' acepto la guardia correspondiente al ' . $fecha .'.';
-    		$subject = "Próxima guardia";
+    		$message='Se informa que el empleado ' . $user->name . ' ' . $user->lastname  .' acepto la guardia correspondiente al ' . $fecha .',  correspondiente al grupo de ' . $grupo->name . ', Teléfono ' . $user->phone . ', Ext. ' . $user->ext . '.';
+    		$subject = "Próxima guardia " . $grupo->slug;
     		$email = true;
     	}
 		if($tipo==2){ // Guardia Rechazada
@@ -67,22 +69,31 @@ class Email extends Model
 
 	        foreach ($notificaciones as $notificacion) {
 	        	$cont++;
-				$fecha2  = new Date($notificacion->desde); 
-    			$fecha2 = $fecha2->format('l d \\d\\e F Y');  
+				//$fecha2  = new Date($notificacion->desde); 
+                $fecha2  = $notificacion->desde; 
+    			//$fecha2 = $fecha2->format('l d \\d\\e F Y');
+                if ($notificacion->days ==1) {
+                    $dia = 'día';
+                }else{
+                    $dia = 'días';
+                }
 
-    			if($cont == $notificaciones->count() && $cont !=1){
+    			if($cont == $notificaciones->count() && $cont !=1){  // ultimo
     				$long = strlen($fecha)-2;
     				$fecha = substr($fecha, 0, $long);
     				$long = strlen($desde)-2;
     				$desde = substr($desde, 0, $long);
     				$fecha =  $fecha . ' y ' . $notificacion->fecha . ', ';
-	        		$desde =  $desde . ' y ' . $fecha2 . ' respectivamente';
+	        		$desde =  $desde . ' y ' . $fecha2 . ' ' .'(' . $notificacion->days .  ')'  . ' ' . $dia . ' respectivamente';
 
-    			}else{
+    			}elseif ($notificaciones->count() > 1){
 
 	        		$fecha = $fecha . $notificacion->fecha . ', ';
-	        		$desde = $desde . $fecha2 . ', ';
-    			}
+	        		$desde = $desde . $fecha2 . ' ' . '(' . $notificacion->days .  ')'  . ' ' . $dia .', ';
+    			}else{
+                    $fecha = $fecha . $notificacion->fecha . ', ';
+                    $desde = $desde . $fecha2 . ' ' . '(' . $notificacion->days .  ')' . ' ' . $dia;
+                }
 	        	$email = true;
 
 	        	DB::table('notificaciones') 
@@ -162,7 +173,7 @@ class Email extends Model
 		}
     }
 
-    public static function guardarNotificacion($tipo, $user_id, $fecha, $grupo_id, $desde = null){
+    public static function guardarNotificacion($tipo, $user_id, $fecha, $grupo_id, $desde = null, $dias = 0){
 
     	DB::table('notificaciones')->insert([
 			'tipo' 		=> $tipo,
@@ -170,6 +181,7 @@ class Email extends Model
 			'fecha'		=> $fecha,
 			'grupo_id'	=> $grupo_id,
 			'desde'		=>	$desde,
+            'days'      => $dias,
 			'created_at' => Date::now(),
             'updated_at' => Date::now()
 			]

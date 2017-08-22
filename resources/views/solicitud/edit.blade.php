@@ -127,7 +127,7 @@
 				var total 	= parseInt($('.total').html());
 				var disponible =  parseInt(row.find(".td-disponible").html());   
 				var solicitado =  parseInt(row.find(".td-solicitado").html());
-				var desde 	=	row.find('.date').data("DateTimePicker").date().format('DD/MM/YYYY');
+				var desde 	=	row.find('.date').data("DateTimePicker").date().format('MM/DD/YYYY');
 				var fecha	=  row.find('.td-fecha').html();
 				var data 	= { id: id, valor: valor, tipo: 1, user_id: user_id, fecha:fecha, desde: desde };
 

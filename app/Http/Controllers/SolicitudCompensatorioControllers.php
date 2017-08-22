@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Compensatorio;
 use App\Notificacion;
 use Carbon\Carbon;
+use Jenssegers\Date\Date;
 use App\Group;
 use App\User;
 use App\Email;
@@ -81,6 +82,7 @@ class SolicitudCompensatorioControllers extends Controller
     {
         $user = User::find($id);
         $disponibles=Compensatorio::disponibles($id);
+        //dd($disponibles);
         $notificar = Notificacion::where([
                 ['status', 0],
                 ['user_id', $user->id]
@@ -136,10 +138,13 @@ class SolicitudCompensatorioControllers extends Controller
 
             Compensatorio::solicitar($id, $valor, $tipo, $user_id);
             
-            if ($tipo==1)
-                Email::guardarNotificacion(3, $user_id, $fecha, $user->group_id, $desde);
-            else
+            if ($tipo==1){
+                $fecha2  = new Date($desde); 
+                $fecha2 = $fecha2->format('l d \\d\\e F Y');
+                Email::guardarNotificacion(3, $user_id, $fecha, $user->group_id, $fecha2, $valor);
+            }else{
                 Email::guardarNotificacion(4, $user_id, $fecha, $user->group_id);
+            }
 
             return response()->json([
                 'id'      =>  $request->id,
@@ -156,7 +161,7 @@ class SolicitudCompensatorioControllers extends Controller
         if($request->ajax()){
             $fecha = Carbon::now();
             $user = User::find($request->user_id);
-            //Compensatorio::aprobar($user->id);
+            Compensatorio::aprobar($user->id);
             Email::guardarEmail(5, $user->id, $fecha, $user->group_id);
             return response()->json([
                 'id'      =>  1,
